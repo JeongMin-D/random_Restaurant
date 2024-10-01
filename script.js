@@ -54,9 +54,13 @@ function generateWeeklyMenu() {
     const shuffledRestaurants = [...restaurants];
     shuffledRestaurants.sort(() => Math.random() - 0.5); // 식당 목록 섞기
 
-    const newWeeklyMenu = {};
+    const newWeeklyMenu = {
+        createdAt: new Date().toLocaleString(), // 생성 시간 추가
+        menu: {}
+    };
+
     for (let i = 0; i < 5; i++) {
-        newWeeklyMenu[days[i]] = shuffledRestaurants[i];
+        newWeeklyMenu.menu[days[i]] = shuffledRestaurants[i];
     }
 
     // 새로운 식단을 기록하고 저장
@@ -72,9 +76,15 @@ function displayWeeklyMenu(menu) {
     const weeklyMenuElement = document.getElementById("weekly-menu");
     weeklyMenuElement.innerHTML = '';
 
-    for (const day in menu) {
+    // 생성 시간 표시
+    const createdAtElement = document.createElement("li");
+    createdAtElement.textContent = `생성 시간: ${menu.createdAt}`;
+    weeklyMenuElement.appendChild(createdAtElement);
+
+    // 식단 표시
+    for (const day in menu.menu) {
         const li = document.createElement("li");
-        li.textContent = `${day}: ${menu[day]}`;
+        li.textContent = `${day}: ${menu.menu[day]}`;
         weeklyMenuElement.appendChild(li);
     }
 }
@@ -93,19 +103,28 @@ function displayLog() {
     const logContent = document.getElementById("log-content");
     logContent.innerHTML = '';  // 기존 로그 지우기
 
-    menuLog.forEach((menu, index) => {
+    menuLog.forEach((logEntry, index) => {
         const div = document.createElement("div");
         div.className = "log-entry";
-        div.innerHTML = `<h3>지난 주 식단 ${index + 1}</h3>`;
+        div.innerHTML = `<h3>지난 주 식단 ${index + 1} (생성 시간: ${logEntry.createdAt})</h3>`;
         const ul = document.createElement("ul");
 
-        for (const day in menu) {
+        for (const day in logEntry.menu) {
             const li = document.createElement("li");
-            li.textContent = `${day}: ${menu[day]}`;
+            li.textContent = `${day}: ${logEntry.menu[day]}`;
             ul.appendChild(li);
         }
 
         div.appendChild(ul);
         logContent.appendChild(div);
     });
+}
+
+// 지난 식단 기록 클리어
+function clearLog() {
+    if (confirm("정말로 지난 주 식단 기록을 삭제하시겠습니까?")) {
+        menuLog = [];  // 로그 배열 초기화
+        localStorage.setItem('menuLog', JSON.stringify(menuLog));  // 로컬 저장소 업데이트
+        displayLog();  // 화면 업데이트
+    }
 }
