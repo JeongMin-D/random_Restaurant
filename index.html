@@ -9,22 +9,31 @@
 <body>
     <h1>주간 식단 계획</h1>
 
+    <!-- 식당 추가/제거 섹션 -->
     <section id="restaurant-input">
         <input type="text" id="restaurant-name" placeholder="식당 이름을 입력하세요">
         <button onclick="addRestaurant()">추가</button>
         <button onclick="removeRestaurant()">제거</button>
     </section>
 
+    <!-- 등록된 식당 목록 -->
     <section id="restaurant-list">
         <h2>등록된 식당 목록</h2>
         <ul id="restaurants"></ul>
     </section>
 
+    <!-- 주간 식단 생성 버튼 -->
+    <section id="generate-menu">
+        <button onclick="generateWeeklyMenu()">주간 식단 생성</button>
+    </section>
+
+    <!-- 이번 주 식단 섹션 -->
     <section id="current-menu">
         <h2>이번 주 식단</h2>
         <ul id="weekly-menu"></ul>
     </section>
 
+    <!-- 지난 주 식단 로그 -->
     <section id="log">
         <h2>지난 주 식단 기록</h2>
         <div id="log-content">
