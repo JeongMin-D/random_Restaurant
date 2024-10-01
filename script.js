@@ -70,3 +70,10 @@ function displayWeeklyMenu(menu) {
 }
 
 // 지난 주 기록을 표시하는 함수
+function displayLog() {
+    fetch('logs/')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('log-content').innerHTML = data;
+        });
+}
