@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+#restaurant-input {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#restaurant-list, #current-menu, #log {
+    margin: 20px 10%;
+}
